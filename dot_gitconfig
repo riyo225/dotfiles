@@ -1,9 +1,0 @@
-[user]
-	name = riyo225
-	email = rmaejp@icloud.com
-[core]
-	editor = code --wait
-[init]
-	defaultBranch = main
-[color]
-	ui = auto
