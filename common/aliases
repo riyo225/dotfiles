@@ -4,6 +4,12 @@ alias vi="nvim"
 alias view="nvim -R"
 
 
+# --- Safety first: ask before overwriting or deleting ---
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+
 # --- LS aaliases ---
 alias ls='ls --color=auto'
 alias ll='ls -alF'

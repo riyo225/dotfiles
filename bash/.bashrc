@@ -27,4 +27,4 @@ fi
 [ -f ~/dotfiles/common/aliases ] && source ~/dotfiles/common/aliases
 
 # --- Custom Prompt for Bash ---
-export PS1='\[\e[31m\]\u\[\e[0m\]@\[\e[35m\]\h\[\e[0m\]:\[\e[31m\]\w\[\e[0m\]\$ '
+export PS1='\[\e[31m\]\u\[\e[0m\]@\[\e[35m\]\h\[\e[0m\]:\[\e[31m\]\w\[\e[0m\] \$ '
