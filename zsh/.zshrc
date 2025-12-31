@@ -8,8 +8,6 @@
 setopt auto_cd
 # Spelling correction for commands (e.g., 'mkae' -> 'make')
 setopt correct
-# Enable better completion (case-insensitive)
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 
 # --- Git branch information ---
