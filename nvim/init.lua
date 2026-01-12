@@ -1060,3 +1060,5 @@ vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true, desc = "Exit
 -- Performance: Set timeout for key sequences to 500ms
 -- This ensures 'jj' is recognized quickly without too much delay.
 vim.opt.timeoutlen = 500
+
+-- Break out of brackets and insert a space with key<Shift>
