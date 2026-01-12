@@ -26,4 +26,4 @@ PROMPT='%F{cyan}%n%f@%F{blue}%m%f:%F{cyan}%~%f${vcs_info_msg_0_} %# '
 
 
 # --- zoxide Settings ---
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd cd)"
