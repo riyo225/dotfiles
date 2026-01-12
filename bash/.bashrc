@@ -32,3 +32,7 @@ export PS1='\[\e[31m\]\u\[\e[0m\]@\[\e[35m\]\h\[\e[0m\]:\[\e[31m\]\w\[\e[0m\] \$
 
 # --- fzf Settings ---
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+
+# --- zoxide Settings ---
+eval "$(zoxide init bash)"

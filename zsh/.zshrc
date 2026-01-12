@@ -23,3 +23,7 @@ PROMPT='%F{cyan}%n%f@%F{blue}%m%f:%F{cyan}%~%f${vcs_info_msg_0_} %# '
 
 # --- fzf Settings ---
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# --- zoxide Settings ---
+eval "$(zoxide init zsh)"
