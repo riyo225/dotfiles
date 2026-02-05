@@ -35,4 +35,4 @@ export PS1='\[\e[31m\]\u\[\e[0m\]@\[\e[35m\]\h\[\e[0m\]:\[\e[31m\]\w\[\e[0m\] \$
 
 
 # --- zoxide Settings ---
-eval "$(zoxide init bash --cmd cd)"
+eval "$(zoxide init bash)"
