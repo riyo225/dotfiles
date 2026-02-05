@@ -1,257 +1,340 @@
---[[
+-- lua/custom 以下の設定を読みこむ
+require("custom")
 
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
-What is Kickstart?
-
-  Kickstart.nvim is *not* a distribution.
-
-  Kickstart.nvim is a starting point for your own configuration.
-    The goal is that you can read every line of code, top-to-bottom, understand
-    what your configuration is doing, and modify it to suit your needs.
-
-    Once you've done that, you can start exploring, configuring and tinkering to
-    make Neovim your own! That might mean leaving Kickstart just the way it is for a while
-    or immediately breaking it into modular pieces. It's up to you!
-
-    If you don't know anything about Lua, I recommend taking some time to read through
-    a guide. One possible example which will only take 10-15 minutes:
-      - https://learnxinyminutes.com/docs/lua/
-
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
-    reference for how Neovim integrates Lua.
-    - :help lua-guide
-    - (or HTML version): https://neovim.io/doc/user/lua-guide.html
-
-Kickstart Guide:
-
-  TODO: The very first thing you should do is to run the command `:Tutor` in Neovim.
-
-    If you don't know what this means, type the following:
-      - <escape key>
-      - :
-      - Tutor
-      - <enter key>
-
-    (If you already know the Neovim basics, you can skip this step.)
-
-  Once you've completed that, you can continue working through **AND READING** the rest
-  of the kickstart init.lua.
-
-  Next, run AND READ `:help`.
-    This will open up a help window with some basic information
-    about reading, navigating and searching the builtin help documentation.
-
-    This should be the first place you go to look when you're stuck or confused
-    with something. It's one of my favorite Neovim features.
-
-    MOST IMPORTANTLY, we provide a keymap "<space>sh" to [s]earch the [h]elp documentation,
-    which is very useful when you're not exactly sure of what you're looking for.
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
-
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+-- リーダーキーの設定
+-- NOTE: プラグインが読み込まれる前に設定する
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- 検索
+-- 大文字小文字を区別せずに検索します
+vim.opt.ignorecase = true
+-- 検索文字列に大文字が含まれている場合は、大文字小文字を区別します
+vim.opt.smartcase = true
+-- 検索結果をハイライト表示します
+vim.opt.hlsearch = true
+-- 入力中から検索結果にジャンプします
+vim.opt.incsearch = true
+-- 置換時にプレビュー画面を分割して表示します
+vim.opt.inccommand = "split"
+
+-- 外観とUI
+-- 行番号を表示します
+vim.opt.number = true
+-- ターミナルのタイトルを編集中のファイル名にします
+vim.opt.title = true
+-- カーソル行を強調表示します
+vim.opt.cursorline = true
+-- サイドバーのサインカラム（エラー等が出る列）を常に表示します
+vim.opt.signcolumn = "yes"
+-- Nerd Fontがインストールされていることを前提にアイコン等を有効にします
+vim.g.have_nerd_font = true
+-- マウス操作を有効にします
+vim.opt.mouse = "a"
+-- 下部のモード表示（-- INSERT -- 等）を非表示にします（ステータスラインがあるため）
+vim.opt.showmode = false
+-- カーソルの上下に最低限表示する行数を指定します
+vim.opt.scrolloff = 10
+-- 不可視文字を表示します
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
+-- インデントとタブ
+-- 改行時に前の行のインデントを継続します
+vim.opt.autoindent = true
+-- 言語構造に基づいた高度な自動インデントを行います
+vim.opt.smartindent = true
+-- 行頭のTabで shiftwidth の数だけインデントします
+vim.opt.smarttab = true
+-- タブ幅を指定します
+vim.opt.tabstop = 4
+-- 自動インデントの幅を指定します
+vim.opt.shiftwidth = 4
+-- タブを入力した際にスペースを展開します
+vim.opt.expandtab = true
+-- 折り返し時にインデントを維持します
+vim.opt.breakindent = true
+
+-- 動作・システム
+-- 保存せずにバッファ（ファイル）を切り替えられるようにします
+vim.opt.hidden = true
+-- 分割を下に開きます
+vim.opt.splitbelow = true
+-- 分割を右に開きます
+vim.opt.splitright = true
+-- 特定の文字数での自動改行を無効化します
+vim.opt.textwidth = 0
+-- 行末・行頭でのカーソル移動の制限を緩和します
+vim.opt.whichwrap = "b,s,h,l,<,>,[,]"
+-- Undo（元に戻す）履歴をファイルに保存します
+vim.opt.undofile = true
+-- 反応速度（ms）を向上させます
+vim.opt.updatetime = 250
+-- キーコード待機時間を設定します
+vim.opt.timeoutlen = 300
+-- ファイルを閉じる際に保存確認ダイアログを表示します
+vim.opt.confirm = true
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
--- Make line numbers default
-vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = "a"
-
--- Don't show the mode, since it's already in the status line
-vim.o.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Schedule the setting after `UiEnter` because it can increase startup-time.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
+-- クリップボード
+-- OSのクリップボードとNeovimのレジスタを同期させる
 vim.schedule(function()
 	vim.o.clipboard = "unnamedplus"
 end)
 
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.o.signcolumn = "yes"
-
--- Decrease update time
-vim.o.updatetime = 250
-
--- Decrease mapped sequence wait time
-vim.o.timeoutlen = 300
-
--- Configure how new splits should be opened
-vim.o.splitright = true
-vim.o.splitbelow = true
-
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
---
---  Notice listchars is set using `vim.opt` instead of `vim.o`.
---  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
---   See `:help lua-options`
---   and `:help lua-options-guide`
-vim.o.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- Preview substitutions live, as you type!
-vim.o.inccommand = "split"
-
--- Show which line your cursor is on
-vim.o.cursorline = true
-
--- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 10
-
--- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
--- instead raise a dialog asking if you wish to save the current file(s)
--- See `:help 'confirm'`
-vim.o.confirm = true
-
--- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
+-- キーマップ
+-- ノーマルモードで Esc を押した時に検索ハイライトを消去します
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
--- Diagnostic keymaps
+-- 診断情報のリスト表示
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
+-- ターミナルモードを Esc 2回で抜けます
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
-
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
+-- Ctrl + hjkl でウィンドウ間を移動します
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+-- lua/custom/keymaps.lua に追記
+-- F5キーで QuickRun を実行
+vim.keymap.set("n", "<F5>", "<cmd>QuickRun<CR>", { desc = "Run code with QuickRun" })
+-- 実行中に「あ、無限ループした！」となった時の停止用（おまけ）
+vim.keymap.set("n", "<leader>qk", "<cmd>pcall(quickrun#session#kill)<CR>", { desc = "[Q]uickrun [K]ill" })
+-- 端末（ターミナル）のタブやウィンドウ名に、現在開いているファイル名を表示します。
+vim.o.title = true
 
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
+-- [[ 括弧抜け設定 ]]
+-- インサートモード中に Shift + Tab で、次の閉じ括弧 ')', '}', ']' の外側へジャンプします
+vim.keymap.set("i", "<S-Tab>", function()
+	-- カーソルの直後の文字を確認し、閉じ括弧なら1文字右へ移動
+	local col = vim.fn.col(".")
+	local line = vim.fn.getline(".")
+	local char = line:sub(col, col)
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
+	if char == ")" or char == "}" or char == "]" or char == '"' or char == "'" then
+		return "<Right>"
+	else
+		-- 閉じ括弧がない場合は、通常のShift+Tab（逆インデント）の挙動を維持
+		return "<C-d>"
+	end
+end, { expr = true, replace_keycodes = true, desc = "Jump out of brackets" })
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
+-- [[ オプション設定 ]]
+-- 詳細は `:help vim.o` を参照
+
+-- 相対行番号を表示する（移動を助けるために便利。必要に応じてコメントアウトを外す）
+vim.o.relativenumber = true
+
+-- 行番号を表示する（デフォルトにする）
+vim.o.number = true
+vim.o.statuscolumn = "%=%l %r"
+
+-- マウスモードを有効化（画面分割のサイズ変更などに便利）
+vim.o.mouse = "a"
+-- モード（-- INSERT -- など）を表示しない（ステータスラインで確認できるため不要）
+vim.o.showmode = false
+-- 折り返し後の行にもインデントを適用する
+vim.o.breakindent = true
+-- アンドゥ履歴をファイルとして保存する（Neovimを閉じても戻せるようになる）
+vim.o.undofile = true
+-- 検索時に大文字小文字を区別しない。ただし検索語に大文字が含まれる場合は区別する (smartcase)
+vim.o.ignorecase = true
+vim.o.smartcase = true
+-- サインカラム（エラーアイコンなどが表示される左端）を常に表示する
+vim.o.signcolumn = "yes"
+-- 更新時間を短縮する（変更が検知されるまでの速度に影響）
+vim.o.updatetime = 250
+-- キーマップの入力待ち時間を短縮する（jj などの判定が速くなります）
+vim.o.timeoutlen = 300
+-- 新しい分割ウィンドウを右、または下に開くように設定
+vim.o.splitright = true
+vim.o.splitbelow = true
+-- 不可視文字（タブや末尾のスペースなど）の表示設定
+-- `vim.opt` はテーブル形式のオプションを扱うのに便利です
+vim.o.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+-- 置換コマンド（:%s/..）の変更内容を、入力しながらリアルタイムでプレビューする
+vim.o.inccommand = "split"
+-- カーソル行をハイライトする
+vim.o.cursorline = true
+-- カーソルの上下に常に表示しておく最小行数（10行あれば視認性が良い）
+vim.o.scrolloff = 10
+-- 保存せずに終了しようとした際に、保存するか確認ダイアログを出す
+vim.o.confirm = true
+
+-- [[ 基本キーマップ ]]
+-- 詳細は `:help vim.keymap.set()` を参照
+-- ノーマルモードで <Esc> を押すと検索のハイライトを消す
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+-- エラーや警告（診断情報）の一覧をクイックフィックスリストで開く
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "診断リストを開く" })
+-- 内蔵ターミナルモードを <Esc><Esc> で抜けられるようにする
+-- 標準の <C-\><C-n> よりも直感的です
+vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "ターミナルモードを抜ける" })
+-- ウィンドウ間の移動を Ctrl + hjkl で簡単に行えるようにする
+-- （Ctrl + w -> h と打つ手間を省く）
+vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "左のウィンドウへ移動" })
+vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "右のウィンドウへ移動" })
+vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "下のウィンドウへ移動" })
+vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "上のウィンドウへ移動" })
+
+-- [[ BinaryXXD ]]
+local binary_group = vim.api.nvim_create_augroup("BinaryXXD", { clear = true })
+-- *.bin ファイルを開く前にバイナリモードをセット
+vim.api.nvim_create_autocmd("BufReadPre", {
+	pattern = "*.bin",
+	group = binary_group,
+	callback = function()
+		vim.bo.binary = true
+	end,
+})
+-- バイナリモードなら xxd で表示を変換
+vim.api.nvim_create_autocmd("BufReadPost", {
+	pattern = "*",
+	group = binary_group,
+	callback = function()
+		if vim.bo.binary then
+			vim.cmd("silent %!xxd -g 1")
+			vim.bo.filetype = "xxd"
+		end
+	end,
+})
+-- 書き込み前に xxd からバイナリに戻す
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	group = binary_group,
+	callback = function()
+		if vim.bo.binary then
+			vim.cmd("%!xxd -r")
+		end
+	end,
+})
+-- 書き込み後に再び xxd 表示に戻す
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = "*",
+	group = binary_group,
+	callback = function()
+		if vim.bo.binary then
+			vim.cmd("silent %!xxd -g 1")
+			vim.bo.modified = false
+		end
+	end,
+})
+
+-- [[ 基本的な自動コマンド ]]
+-- 詳細は `:help lua-guide-autocommands` を参照
+
+-- テキストをヤンク（コピー）した際にハイライトを表示する
+-- ノーマルモードで `yap`（段落をコピー）などを試すと分かりやすいです
+-- 詳細は `:help vim.hl.on_yank()` を参照
 vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
+	desc = "テキストをヤンクした際にハイライトする",
+	-- 設定の重複を防ぐためにグループ化
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
 		vim.hl.on_yank()
 	end,
 })
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
+-- [[ プラグインマネージャー `lazy.nvim` のインストール ]]
+-- 詳細は `:help lazy.nvim.txt` または https://github.com/folke/lazy.nvim を参照
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+	-- 安定版の lazy.nvim を GitHub からクローンする
 	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
 	if vim.v.shell_error ~= 0 then
-		error("Error cloning lazy.nvim:\n" .. out)
+		error("lazy.nvim のクローン中にエラーが発生しました:\n" .. out)
 	end
 end
 
 ---@type vim.Option
 local rtp = vim.opt.rtp
+-- Neovim の検索パス（runtimepath）の先頭に lazy.nvim を追加する
 rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
---
 --  To check the current status of your plugins, run
 --    :Lazy
---
 --  You can press `?` in this menu for help. Use `:q` to close the window
---
 --  To update plugins you can run
 --    :Lazy update
---
--- NOTE: Here is where you install your plugins.
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-	"NMAC427/guess-indent.nvim", -- Detect tabstop and shiftwidth automatically
+	"NMAC427/guess-indent.nvim",
+	{
+		"thinca/vim-quickrun",
+		dependencies = {
+			{ "shougo/vimproc.vim", build = "make" },
+		},
+		config = function()
+			vim.g.quickrun_config = {
+				["_"] = {
+					runner = "vimproc",
+					runner_options = {
+						["runner/vimproc/updatetime"] = 60,
+					},
+					outputter = "error",
+					["outputter/error/success"] = "buffer",
+					["outputter/error/error"] = "quickfix",
+					["outputter/buffer/split"] = ":rightbelow 8sp", -- 下側に8行で表示
+					["outputter/buffer/close_on_empty"] = 1,
+				},
+				cpp = {
+					command = "g++",
+					-- 2026年現在の最新標準 C++26 を指定。競プロなら -O2 と -Wall は必須
+					cmdopt = "-std=c++26 -O2 -Wall",
+					["hook/time/enable"] = 1, -- 実行時間を計測する kurenaifさん流設定
+				},
+				python = {
+					command = "python3",
+				},
+				tex = {
+					command = "latexmk",
+					cmdopt = "--xelatex -pv",
+					exec = "%c %o %s",
+				},
+				-- グラフ作成に便利
+				gnuplot = {
+					command = "gnuplot",
+				},
+			}
+		end,
+	},
+	{
+		-- 1. インデントの可視化 (vim-indent-guides の現代版)
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {
+			enabled = false, -- 最初はOFFにしておく kurenaifさん流
+		},
+		keys = {
+			{ "<leader>ig", "<cmd>IBLToggle<cr>", desc = "Toggle Indent Guides" },
+		},
+	},
+	{
+		-- 2. スタート画面 (vim-startify の現代版)
+		-- 最近開いたファイルやブックマークを美しく表示
+		"nvimdev/dashboard-nvim",
+		event = "VimEnter",
+		config = function()
+			require("dashboard").setup({
+				theme = "hyper",
+				config = {
+					week_header = { enable = true },
+					shortcut = {
+						{ desc = "󰒲 Lazy", group = "@property", action = "Lazy", key = "l" },
+						{ desc = "󰄉 Recent Files", group = "@property", action = "Telescope oldfiles", key = "r" },
+					},
+				},
+			})
+		end,
+		dependencies = { { "nvim-tree/nvim-web-devicons" } },
+	},
 
 	-- NOTE: Plugins can also be added by using a table,
 	-- with the first argument being the link and the following
-	-- keys can be used to configure plugin behavior/loading/etc.
+	--
 	--
 	-- Use `opts = {}` to automatically pass options to a plugin's `setup()` function, forcing the plugin to be loaded.
 	--
@@ -992,39 +1075,12 @@ require("lazy").setup({
 		--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	},
 
-	-- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-	-- init.lua. If you want these files, they are in the repository, so you can just download them and
-	-- place them in the correct locations.
-
-	-- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-	--
-	--  Here are some example plugins that I've included in the Kickstart repository.
-	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
-	--
-	-- require 'kickstart.plugins.debug',
-	-- require 'kickstart.plugins.indent_line',
-	-- require 'kickstart.plugins.lint',
-	-- require 'kickstart.plugins.autopairs',
-	-- require("kickstart.plugins.neo-tree"),
-	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-	--
 	-- autopairs.lua
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
 	},
-
-	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-	--    This is the easiest way to modularize your config.
-	--
-	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-	-- { import = "custom.plugins" },
-	--
-	-- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
-	-- Or use telescope!
-	-- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
-	-- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -1047,18 +1103,88 @@ require("lazy").setup({
 	},
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- Markdown ファイルを正しく認識させる設定
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = "*.md",
+	command = "set filetype=markdown",
+})
 
--------------------------------------------------------------------------------
--- [[ User Custom Configurations ]]
--------------------------------------------------------------------------------
--- Keybinding: Exit insert mode by pressing 'jj'
--- This is a faster alternative to the Esc key, keeping your hands on the home row.
-vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true, desc = "Exit insert mode" })
+-- switch.vim: 単語の切り替え設定
+-- AndrewRadev/switch.vim プラグインが必要です
+vim.g.switch_definitions = {
+	{
+		["YES"] = "NO",
+		["NO"] = "YES",
+	},
+}
+-- 「+」キーの割り当て (Vim関数をLuaから呼び出す安全な方法)
+vim.keymap.set("n", "+", function()
+	-- Vimscriptの関数 switch#Switch を直接呼び出す
+	vim.fn["switch#Switch"](vim.g.variable_style_switch_definitions)
+end, { silent = true, desc = "Custom Word Switch" })
 
--- Performance: Set timeout for key sequences to 500ms
--- This ensures 'jj' is recognized quickly without too much delay.
-vim.opt.timeoutlen = 500
+-- 「-」キーの割り当て (標準の切り替え)
+vim.keymap.set("n", "-", "<cmd>Switch<cr>", { silent = true, desc = "Default Switch" })
 
--- Break out of brackets and insert a space with key<Shift>
+-- lua/custom/keymaps.lua に追加
+-- Ctrl+e でファイルツリーをトグル（開閉）
+vim.keymap.set("n", "<C-e>", "<cmd>Neotree toggle<cr>", { desc = "Toggle File Tree" })
+
+-- open-browser.vim: gx でURLを開く
+-- tyru/open-browser.vim プラグインが必要です
+vim.g.netrw_nogx = 1 -- 標準のgxを無効化
+vim.keymap.set("n", "gx", "<Plug>(openbrowser-smart-search)", { desc = "Open URL or Search" })
+vim.keymap.set("v", "gx", "<Plug>(openbrowser-smart-search)", { desc = "Open URL or Search" })
+
+-- Undotree: 編集履歴をビジュアル表示
+-- mbbill/undotree プラグインが必要です
+vim.g.undotree_WindowLayout = "topleft"
+vim.g.undotree_SplitWidth = 35
+vim.g.undotree_SetFocusWhenToggle = 1
+
+-- リーダーキー + u で履歴ツリーを表示
+vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Toggle Undotree" })
+
+-- yanky.nvim を使う場合の Telescope 連携例
+-- lua/custom/keymaps.lua
+-- スペース + y でコピー履歴を一覧表示
+vim.keymap.set("n", "<leader>y", "<cmd>Telescope yank_history<cr>", { desc = "Show Yank History" })
+
+-- インデントガイドの設定 (indent-blankline.nvim を使用)
+-- 起動時は表示せず、手動でトグルできるように設定
+vim.g.indent_guides_enable_on_vim_startup = 0
+
+-- Doxygenなどのドキュメント作成用
+vim.opt.filetype = "on"
+
+-- =============================================================================
+-- 強力な置換マッピング (vim-overのロジックをネイティブ置換に移植)
+-- =============================================================================
+
+-- <leader>m: 置換コマンドラインを素早く呼び出す
+vim.keymap.set("n", "<leader>m", ":%s/", { desc = "Substitution" })
+
+-- sub: カーソル下の単語をファイル全体で置換
+-- ※ Neovimの inccommand = "split" により、入力中にリアルタイムで置換結果が見えます
+vim.keymap.set("n", "sub", ":%s/<C-r><C-w>//g<Left><Left>", { desc = "Replace word under cursor" })
+
+-- subp: コピー（ヤンク）した文字列をファイル全体で置換 (特殊文字のエスケープ処理付き)
+vim.keymap.set("n", "subp", function()
+	local yanked = vim.fn.getreg('"')
+	-- 特殊文字 ! をエスケープする kurenaifさん流の賢い処理
+	local escaped = yanked:gsub("!", "\\!")
+	vim.api.nvim_feedkeys(":%s!" .. escaped .. "!!gI" .. string.rep("<Left>", 3), "n", false)
+end, { desc = "Replace yanked text" })
+
+-- =============================================================================
+-- コメントアウト (caw.vim の操作感を継承)
+-- =============================================================================
+-- Kickstartの mini.comment / Comment.nvim を kurenaifさんのキー <leader>c に割り当て
+vim.keymap.set({ "n", "v" }, "<leader>c", "gc", { remap = true, desc = "Toggle comment" })
+
+-- =============================================================================
+-- 差分移動 (Signify -> gitsigns)
+-- =============================================================================
+-- <leader>gj / gk で変更箇所をジャンプする kurenaifさん流のキー
+vim.keymap.set("n", "<leader>gj", "<cmd>Gitsigns next_hunk<CR>zz", { desc = "Next Git hunk" })
+vim.keymap.set("n", "<leader>gk", "<cmd>Gitsigns prev_hunk<CR>zz", { desc = "Prev Git hunk" })

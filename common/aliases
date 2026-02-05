@@ -31,3 +31,4 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias ctf='cd ~/ctf'
 alias cy='cd ~/ctf/contests/$(date +%Y)'
 alias ur='uv run'
+alias sherlock='uv --directory ~/ctf-tools/sherlock run python -m sherlock_project'

@@ -23,3 +23,7 @@ export PATH=$PATH:/snap/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH="$PATH:$(go env GOPATH)/bin"
 export PATH="$PATH:$HOME/.local/bin"
+
+
+# --- CTF-Tools Settings ---
+export PATH="$HOME/ctf-tools:$PATH"

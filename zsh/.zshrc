@@ -5,7 +5,7 @@
 
 # -- Zsh Efficiency Settings ---
 # Automatically 'cd' into a directory just by typing its name
-setopt auto_cd
+# setopt auto_cd
 # Spelling correction for commands (e.g., 'mkae' -> 'make')
 setopt correct
 
