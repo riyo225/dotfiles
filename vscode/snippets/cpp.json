@@ -919,7 +919,7 @@
       "    }",
       "",
       "    ll get_except(ll i) {",
-      "        return preff[i] + suff[i + 1];",
+      "        return pref[i] + suff[i + 1];",
       "    }",
       "",
       "    ll query(ll l, ll r) {",
@@ -932,7 +932,7 @@
   "cumsum2d": {
     "prefix": "cumsum2d",
     "body": [
-      "strucnt CumSum2D {",
+      "struct CumSum2D {",
       "    ll h, w;",
       "    vector<vector<ll>> s;",
       "",
